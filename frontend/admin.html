@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrator dashboard - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+            <h1>Administrator dashboard</h1>
+            <p class="lead-muted mb-0">Queues, counters and the recent activity of the lost and found service.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" href="admin-claims.html">Claim queue</a>
+            <a class="btn btn-outline-primary" href="admin-items.html">Report moderation</a>
+        </div>
+    </div>
+
+    <div id="admin-loading" class="loading-state">Loading the dashboard...</div>
+    <div id="admin-error" class="alert alert-danger d-none" role="alert"></div>
+
+    <div id="admin-content" class="d-none">
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Open lost reports</p>
+                        <p class="h3 mb-0" id="count-lost">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Open found reports</p>
+                        <p class="h3 mb-0" id="count-found">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Pending claims</p>
+                        <p class="h3 mb-0" id="count-pending">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Approved claims</p>
+                        <p class="h3 mb-0" id="count-approved">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Returned items</p>
+                        <p class="h3 mb-0" id="count-returned">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">All reports</p>
+                        <p class="h3 mb-0" id="count-reports">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Registered users</p>
+                        <p class="h3 mb-0" id="count-users">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Closed reports</p>
+                        <p class="h3 mb-0" id="count-closed">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Claims waiting for review</span>
+                        <a href="admin-claims.html" class="btn btn-sm btn-outline-primary">Open queue</a>
+                    </div>
+                    <div class="card-body" id="pending-claims"></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Recently updated reports</span>
+                        <a href="admin-items.html" class="btn btn-sm btn-outline-primary">Moderate reports</a>
+                    </div>
+                    <div class="card-body" id="recent-items"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Audit trail</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead>
+                        <tr>
+                            <th scope="col">Time</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Entity</th>
+                            <th scope="col">Actor</th>
+                            <th scope="col">Details</th>
+                        </tr>
+                        </thead>
+                        <tbody id="audit-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

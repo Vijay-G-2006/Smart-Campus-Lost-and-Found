@@ -1,0 +1,88 @@
+# ---------------------------------------------------------------------------
+# TEMPLATE - Azure App Service deployment.
+#
+# This workflow is intentionally NOT executed automatically. It only runs when
+# it is triggered manually AND the required secrets are configured in the
+# repository settings. Nothing in this repository creates Azure resources.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   AZURE_CREDENTIALS        - service principal JSON (or use OIDC below)
+#   AZURE_APP_SERVICE_NAME   - name of the existing App Service
+#   AZURE_APP_SERVICE_PLAN   - name of the existing App Service plan
+#
+# Important: deploying to Azure can create billable resources. Create the
+# resources once (see docs/AZURE_DEPLOYMENT.md) and let this workflow only
+# publish new versions of the application to the existing App Service.
+# ---------------------------------------------------------------------------
+name: Deploy to Azure (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy" to publish the application to Azure App Service'
+        required: true
+        default: ''
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Publish the jar to Azure App Service
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: azure-production
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Require an explicit confirmation
+        run: |
+          if [ "${{ inputs.confirm }}" != "deploy" ]; then
+            echo "::error::The confirmation text does not match - nothing was deployed."
+            exit 1
+          fi
+
+      - name: Build the application
+        run: ./gradlew build -x test --console=plain
+
+      - name: Sign in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Publish to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_APP_SERVICE_NAME }}
+          package: build/libs/findit.jar
+          type: jar
+          slot-name: production
+
+      - name: Verify the health endpoint
+        run: |
+          url="https://${{ secrets.AZURE_APP_SERVICE_NAME }}.azurewebsites.net/api/health"
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            if curl -fsS "$url"; then
+              echo ""
+              echo "Deployment verified."
+              exit 0
+            fi
+            echo "Waiting for the application to start (attempt $attempt)..."
+            sleep 15
+          done
+          echo "::error::The application did not answer on $url"
+          exit 1

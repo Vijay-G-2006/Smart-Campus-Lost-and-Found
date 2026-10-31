@@ -1,0 +1,47 @@
+# ---------------------------------------------------------------------------
+# FindIT - build artefacts
+# ---------------------------------------------------------------------------
+build/
+out/
+bin/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/
+!gradle/wrapper/gradle-wrapper.properties
+
+# ---------------------------------------------------------------------------
+# Local runtime data (local database files, uploaded images)
+# ---------------------------------------------------------------------------
+local-data/
+local-storage/
+*.mv.db
+*.trace.db
+*.h2.db
+
+# ---------------------------------------------------------------------------
+# Secrets / local environment - NEVER COMMIT
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+azure/credentials.json
+service-account*.json
+
+# ---------------------------------------------------------------------------
+# IDE / OS
+# ---------------------------------------------------------------------------
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+.DS_Store
+Thumbs.db
+
+# Local credentials (single file; never publish)
+local/credentials.env

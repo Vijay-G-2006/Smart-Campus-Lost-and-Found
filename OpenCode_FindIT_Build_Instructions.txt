@@ -1,0 +1,140 @@
+OPENCODE BUILD INSTRUCTIONS — FINDIT
+====================================
+
+You are an autonomous coding agent working in the current terminal/repository. The user will provide this file together with `FindIT_PRD.md` (the complete Product Requirements Document). Treat the PRD as the source of truth for product behavior and acceptance criteria.
+
+MISSION
+-------
+Build the FindIT Smart Campus Lost and Found Management System described in the PRD into a working, documented, tested application. Work through implementation end-to-end rather than merely giving advice or generating a plan. When finished, give the user a concise completion report and list only the setup/deployment steps that genuinely require their input or account access.
+
+IMPORTANT LIMITATION
+--------------------
+You may implement, configure, and test everything possible in the repository and local environment, but do not claim that Azure resources, GitHub settings, or production deployment are complete unless you actually verified that they succeeded. Do not invent credentials, create billable cloud resources, accept terms, or perform destructive actions without explicit user approval. If a task requires credentials, subscription access, confirmation, or an unavailable external service, finish all independent work first and then give the user exact remaining steps.
+
+OPERATING RULES
+---------------
+1. Start by inspecting the repository, existing code, README, git status, available runtimes, and installed tools. Preserve useful existing work. Do not overwrite unrelated files.
+2. Read the entire `FindIT_PRD.md` before implementing. Convert its requirements into a checklist and trace major requirements to implementation/tests.
+3. If the repository is empty, create a clean project structure. If it already contains an app, adapt it instead of rebuilding blindly.
+4. Choose compatible, currently installed/supported versions. Prefer a supported Java LTS release and compatible Spring Boot version. Check the installed Java/Maven/Gradle/Node versions before deciding. Keep the frontend intentionally simple: HTML/CSS/JavaScript/Bootstrap unless the repository already uses a sensible alternative.
+5. Implement a complete MVP, not just static mockups. Every visible action must work or be clearly marked as not part of the MVP. Connect the frontend to the real backend APIs.
+6. Keep the application runnable locally without Azure credentials. Provide a local database profile and local/no-image storage option. Azure services must be selected through configuration, not hard-coded dependencies on secrets.
+7. Use secure defaults. Never hard-code real credentials, secrets, tokens, or production passwords. Never print secrets. Never commit `.env` or credential files. Add placeholders to `.env.example` and ensure secret files are ignored by Git.
+8. Do not put authentication/authorization only in the UI. Enforce it in backend routes/services. Never expose private verification details, claim explanations, password hashes, or another user's private data through general item APIs.
+9. Do not use real personal data. Use synthetic demo data only.
+10. Do not run destructive commands, delete user data, force-push, rewrite Git history, deploy billable resources, or change cloud account settings without explicit approval. Avoid `git reset --hard`, broad deletion, and unreviewed migrations against any external database.
+11. Do not stop after writing a plan. Continue implementation, build, tests, and fixes until the acceptance criteria are met or a genuine blocker remains.
+12. Do not ask the user questions that can be answered by inspecting the repository or by making a safe, reversible engineering choice. For unresolved choices, choose the simplest secure option, document it, and proceed.
+13. If a required tool/command is unavailable, use a reasonable alternative where possible and report the limitation precisely.
+14. Do not claim tests passed unless you ran them and saw a successful result. Do not claim deployment succeeded unless you verified the deployed endpoint.
+15. Do not reveal internal reasoning. Communicate brief milestones only when useful; prioritize doing the work.
+
+IMPLEMENTATION ORDER
+--------------------
+Phase 1 — Inspect and plan
+- Inspect repository tree, git status, existing instructions (including AGENTS.md and similar), and project files.
+- Read `FindIT_PRD.md`.
+- Check available Java, Maven/Gradle, Node (only if needed), Docker (if relevant), Git, Azure CLI, and GitHub CLI.
+- Create a short implementation checklist and then proceed.
+- Keep a backup of any file you need to replace if it contains user work; prefer additive edits.
+
+Phase 2 — Project structure and configuration
+- Set up a clear backend/frontend layout appropriate to the repository.
+- Prefer a Spring Boot backend with layered packages: configuration, security, controllers, services, repositories, entities, DTOs, validation, exceptions, and storage.
+- Use Flyway migrations for schema evolution. Do not depend on Hibernate schema auto-update for production.
+- Provide a local development profile that does not require Azure.
+- Add `.gitignore`, `.env.example`, a clear README, and health endpoint.
+- Use UTC for stored timestamps and document timezone presentation.
+
+Phase 3 — Backend MVP
+Implement the PRD requirements, including:
+- Registration/login/logout/current-user flow with secure password hashing and backend authorization.
+- `USER` and `ADMIN` roles.
+- Category and campus location data.
+- Lost/found report creation, listing, filtering, details, ownership-checked editing, and closing.
+- Input validation, pagination, consistent error responses, and centralized exception handling.
+- Private image storage abstraction with local/no-image implementation and Azure Blob implementation behind configuration.
+- Rule-based match scoring (category 30, description up to 30, location 20, date proximity 20; maximum 100) with score breakdown and unit tests.
+- Private claim submission, duplicate-active-claim prevention, claim status viewing, admin review/approval/rejection, and return tracking.
+- Admin dashboard and audit events where appropriate.
+- Public DTOs must not leak private verification data or claim content.
+- Ensure status transitions and permissions are enforced in service/backend logic.
+
+For authentication, choose one coherent, secure mechanism and implement it end-to-end. If using browser cookies/sessions, configure secure production cookies and CSRF protection correctly. If using tokens, do not store sensitive tokens in unsafe locations without considering XSS. Document the selected design and test it.
+
+Phase 4 — Frontend MVP
+Build a responsive, consistent UI for:
+- Landing page and authentication.
+- User dashboard.
+- Create/edit lost or found report.
+- Search results and filters.
+- Item detail and suggested matches.
+- My reports.
+- My claims.
+- Admin dashboard and claim review/moderation.
+- Help/privacy.
+Include loading, empty, validation, success, and error states. Ensure forms have labels and controls are keyboard-accessible. Wire every control to the API. Do not simulate successful API actions with hard-coded data.
+
+Phase 5 — Azure integration
+- Add configurable production adapters/settings for Azure SQL Database, Azure Blob Storage, and Application Insights as specified by the PRD.
+- Prefer managed identity for Azure resource access where practical; otherwise use environment/App Service settings for secrets.
+- Keep Blob Storage private; do not enable public container access.
+- Provide an Azure deployment guide with the exact resource/configuration prerequisites, migrations, CORS/origin settings if relevant, and health-check verification.
+- Add a GitHub Actions CI workflow that builds and tests on push/PR. A deployment workflow may be added as a disabled/template/manual workflow if secrets and environment approval are not available.
+- Do NOT create Azure resources, trigger charges, deploy, or alter subscription settings unless the user explicitly authorizes the action and the available tools support it. If Azure CLI is authenticated, inspect only non-destructively first. Ask before any operation that may create billable resources.
+- Do not make Entra ID, Azure Functions, email, or other optional features a blocker for the MVP.
+
+Phase 6 — Tests and quality
+Add and run tests for:
+- Match score calculations and edge cases.
+- Report validation and status transitions.
+- Authentication and role enforcement.
+- Normal users denied access to admin endpoints.
+- Users cannot edit other users' reports.
+- Users cannot access other users' claims or private verification fields.
+- Duplicate/invalid claims rejected.
+- Admin claim decisions and return workflow.
+- Primary API integration flow.
+- Frontend/backend integration as feasible.
+Also run formatting/lint/build checks available in the project. Fix failures rather than merely listing them. If a test cannot run because of an environmental limitation, explain the exact reason.
+
+Phase 7 — Documentation and delivery
+Ensure the repository includes:
+- `FindIT_PRD.md` (preserve the provided file; do not silently rewrite its requirements).
+- `README.md` with prerequisites, setup, run, test, demo flow, architecture, and troubleshooting.
+- `.env.example` with placeholders only.
+- Database migrations and safe demo seed data.
+- API/architecture documentation.
+- CI workflow.
+- Azure deployment guide and clear warning about possible Azure costs.
+- A short manual acceptance-test checklist.
+- A completion report, for example `IMPLEMENTATION_REPORT.md`, describing features, architecture decisions, test commands/results, known limitations, and manual next steps.
+
+RUNNING / TESTING EXPECTATIONS
+------------------------------
+- Run the backend build and tests with the repository's actual build tool.
+- Start the app locally if the environment allows; verify the health endpoint and core routes where practical.
+- If browser/e2e tooling is installed, use it for a short end-to-end smoke test. Do not install large dependencies or access external accounts without need/approval.
+- Check that no secret values appear in tracked files or logs. Do not dump environment variables wholesale.
+- Check `git diff` and `git status`; preserve unrelated user modifications.
+- If Git is available, do not commit automatically unless the user asks. Never push without explicit permission.
+- If deployment is authorized and configured, verify the deployed URL and report the result; otherwise leave clear deployment steps.
+
+COMPLETION REPORT FORMAT
+------------------------
+When implementation work is genuinely complete, respond in this structure:
+
+1. **Status:** Complete / Mostly complete / Blocked (choose honestly).
+2. **Built:** short list of functional features.
+3. **Verification:** exact build/test commands run and their actual results.
+4. **Run locally:** exact commands and local URL(s).
+5. **Azure status:** distinguish configuration/docs from actual deployed resources. State clearly if no cloud deployment was performed.
+6. **What I need to do:** only the remaining manual actions, in numbered order, such as setting local environment values, creating/signing into an Azure subscription, creating resources, configuring GitHub secrets, or approving a deployment. For each action, give the exact setting/value name and where it belongs, but never ask the user to paste secret values into chat.
+7. **Known limitations:** any incomplete feature or failed check.
+8. **Files changed:** summarize the main new/modified files.
+
+Do not say “everything is done” if a test, configuration, or deployment remains incomplete. Do not make the user repeat information already in the PRD. If the only remaining work requires their account permissions or approval, finish all other implementation work first, then clearly explain that boundary and stop.
+
+START NOW
+---------
+Inspect the current repository and the provided PRD, then implement the project. Do not respond with a plan alone.

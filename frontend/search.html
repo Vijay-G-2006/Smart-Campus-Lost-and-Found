@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search items - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div class="page-header">
+        <h1>Search lost &amp; found reports</h1>
+        <p class="lead-muted">Filter by keyword, type, category, location, date and status.</p>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="search-form" novalidate>
+                <div class="row g-3">
+                    <div class="col-12 col-lg-4">
+                        <label class="form-label" for="q">Keyword</label>
+                        <input class="form-control" type="search" id="q" name="q"
+                               placeholder="e.g. umbrella, blue backpack">
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <label class="form-label" for="type">Type</label>
+                        <select class="form-select" id="type" name="type">
+                            <option value="">All types</option>
+                            <option value="LOST">Lost items</option>
+                            <option value="FOUND">Found items</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <label class="form-label" for="status">Status</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="">All statuses</option>
+                            <option value="OPEN">Open</option>
+                            <option value="UNDER_REVIEW">Under review</option>
+                            <option value="CLAIMED">Claimed</option>
+                            <option value="RETURNED">Returned</option>
+                            <option value="CLOSED">Closed</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <label class="form-label" for="categoryId">Category</label>
+                        <select class="form-select" id="categoryId" name="categoryId">
+                            <option value="">All categories</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <label class="form-label" for="locationId">Location</label>
+                        <select class="form-select" id="locationId" name="locationId">
+                            <option value="">All locations</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <label class="form-label" for="dateFrom">Date from</label>
+                        <input class="form-control" type="date" id="dateFrom" name="dateFrom">
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <label class="form-label" for="dateTo">Date to</label>
+                        <input class="form-control" type="date" id="dateTo" name="dateTo">
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <label class="form-label" for="sort">Sort by</label>
+                        <select class="form-select" id="sort" name="sort">
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                            <option value="event-date">Most recent event date</option>
+                            <option value="event-date-asc">Oldest event date</option>
+                            <option value="title">Title A-Z</option>
+                        </select>
+                    </div>
+                    <div class="col-6 col-lg-3 d-flex align-items-end">
+                        <button class="btn btn-primary w-100" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <p class="lead-muted mb-0" id="result-summary" role="status">Enter your filters and press search.</p>
+        <button class="btn btn-sm btn-outline-secondary" type="button" id="reset-filters">Reset filters</button>
+    </div>
+
+    <div id="results" class="row g-3"></div>
+    <div id="pagination" class="mt-4"></div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

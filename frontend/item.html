@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Report details - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div id="item-loading" class="loading-state">Loading the report...</div>
+    <div id="item-error" class="alert alert-danger d-none" role="alert"></div>
+
+    <div id="item-content" class="d-none">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2 mb-3" id="item-badges"></div>
+                        <h1 id="item-title" class="h3"></h1>
+                        <p class="lead-muted" id="item-meta"></p>
+                        <p id="item-description" class="item-description"></p>
+
+                        <img id="item-image" class="img-fluid rounded mb-3 d-none" alt="">
+
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Category</dt>
+                            <dd class="col-sm-8" id="item-category"></dd>
+                            <dt class="col-sm-4">Location</dt>
+                            <dd class="col-sm-8" id="item-location"></dd>
+                            <dt class="col-sm-4">Date</dt>
+                            <dd class="col-sm-8" id="item-date"></dd>
+                            <dt class="col-sm-4">Reported</dt>
+                            <dd class="col-sm-8" id="item-created"></dd>
+                            <dt class="col-sm-4">Status</dt>
+                            <dd class="col-sm-8" id="item-status"></dd>
+                        </dl>
+
+                        <div id="owner-actions" class="d-none mt-4 d-flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+
+                <div class="card mt-4" id="private-card">
+                    <div class="card-header">Private details (owner and administrators only)</div>
+                    <div class="card-body">
+                        <p class="lead-muted small mb-2">
+                            These details are never part of the public report. They help an administrator verify a claim.
+                        </p>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Verification detail</dt>
+                            <dd class="col-sm-8" id="private-detail">-</dd>
+                            <dt class="col-sm-4">Contact channel</dt>
+                            <dd class="col-sm-8" id="private-contact">-</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card mb-4" id="claim-card">
+                    <div class="card-header">Claim this item</div>
+                    <div class="card-body">
+                        <div id="claim-form-area">
+                            <p class="lead-muted small">
+                                Your explanation and verification answers stay private. Only the campus administrators
+                                who review the claim can read them.
+                            </p>
+                            <div id="claim-error" class="alert alert-danger d-none" role="alert"></div>
+                            <form id="claim-form" novalidate>
+                                <div class="mb-3">
+                                    <label class="form-label required-marker" for="explanation">Why is this item yours?</label>
+                                    <textarea class="form-control" id="explanation" name="explanation" rows="4"
+                                              minlength="20" maxlength="2000" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="verificationAnswers">Verification answers (optional)</label>
+                                    <textarea class="form-control" id="verificationAnswers"
+                                              name="verificationAnswers" rows="3" maxlength="1000"></textarea>
+                                    <div class="form-text">Only the administrator sees this text.</div>
+                                </div>
+                                <button class="btn btn-primary" type="submit" id="claim-submit">Submit claim</button>
+                            </form>
+                        </div>
+                        <div id="claim-state" class="d-none"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Suggested matches</div>
+                    <div class="card-body">
+                        <p class="lead-muted small">
+                            Scores are rule-based suggestions, never proof of ownership. An administrator verifies
+                            every claim manually.
+                        </p>
+                        <div id="matches"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/item.js"></script>
+</body>
+</html>

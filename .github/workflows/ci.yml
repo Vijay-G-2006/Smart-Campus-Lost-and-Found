@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Compile and run the automated tests
+        run: ./gradlew build --console=plain --stacktrace
+
+      - name: Check that no secret is committed
+        run: |
+          if git ls-files | grep -E '(^|/)\.env$'; then
+            echo "::error::A .env file is committed - remove it immediately."
+            exit 1
+          fi
+          if git ls-files | grep -iE 'credentials|service-account|\.pem$|\.key$'; then
+            echo "::error::A credential like file is committed - remove it immediately."
+            exit 1
+          fi
+          echo "No secret files are tracked."
+
+      - name: Upload the test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: build/reports/tests/test
+          retention-days: 7
+
+      - name: Upload the executable jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: findit-jar
+          path: build/libs/findit.jar
+          retention-days: 7

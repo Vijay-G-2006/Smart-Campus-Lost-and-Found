@@ -1,0 +1,94 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.findit'
+version = '1.0.0'
+description = 'FindIT - Smart Campus Lost and Found Management System'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    // Version of the Flyway SQL Server (Azure SQL) support module.
+    // Kept in sync with the Flyway version managed by Spring Boot.
+    flywaySqlserverVersion = '12.4.0'
+    // Azure SDK BOM keeps the Azure Identity / Blob Storage artifacts aligned.
+    azureSdkVersion = '1.3.9'
+}
+
+dependencies {
+    // --- Web / API ---
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // --- Persistence ---
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-flyway'
+    implementation 'org.flywaydb:flyway-core'
+    // Azure SQL Database (SQL Server) support for Flyway.
+    implementation "org.flywaydb:flyway-sqlserver:${flywaySqlserverVersion}"
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+
+    // --- Security ---
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // --- Azure Storage (optional; only used when app.storage.type=azure) ---
+    implementation platform("com.azure:azure-sdk-bom:${azureSdkVersion}")
+    implementation 'com.azure:azure-storage-blob'
+    implementation 'com.azure:azure-identity'
+
+    // --- Test ---
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-webmvc-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+// The canonical front-end lives in /frontend and is packaged into the
+// application jar (classpath:/static) so that a single artifact can be
+// deployed to Azure App Service and serves both the UI and the API.
+tasks.named('processResources') {
+    from('frontend') {
+        into 'static'
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+tasks.named('bootJar') {
+    archiveFileName = 'findit.jar'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    maxParallelForks = 1
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+        showStandardStreams = false
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}

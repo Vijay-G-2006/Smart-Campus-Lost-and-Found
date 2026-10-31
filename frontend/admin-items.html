@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Report moderation - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+            <h1>Report moderation</h1>
+            <p class="lead-muted mb-0">Close inappropriate reports, reject them or re-open a moderated report.</p>
+        </div>
+        <a class="btn btn-outline-primary" href="admin.html">Back to dashboard</a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="filter-form" class="row g-3 align-items-end">
+                <div class="col-6 col-lg-3">
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-select" id="status" name="status">
+                        <option value="">All statuses</option>
+                        <option value="OPEN" selected>Open</option>
+                        <option value="UNDER_REVIEW">Under review</option>
+                        <option value="CLAIMED">Claimed</option>
+                        <option value="CLOSED">Closed</option>
+                        <option value="REJECTED">Rejected</option>
+                        <option value="RETURNED">Returned</option>
+                    </select>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <label class="form-label" for="q">Title contains</label>
+                    <input class="form-control" type="search" id="q" name="q">
+                </div>
+                <div class="col-6 col-lg-2">
+                    <button class="btn btn-primary w-100" type="submit">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="items-loading" class="loading-state">Loading reports...</div>
+    <div id="items-list" class="d-none"></div>
+    <div id="items-pagination" class="mt-4"></div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/admin-items.js"></script>
+</body>
+</html>

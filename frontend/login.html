@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="page-header">
+                <h1>Sign in</h1>
+                <p class="lead-muted">Use your campus email address and password.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div id="login-error" class="alert alert-danger d-none" role="alert"></div>
+
+                    <form id="login-form" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="email">Email address</label>
+                            <input class="form-control" type="email" id="email" name="email" autocomplete="email"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password"
+                                   autocomplete="current-password" required>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit" id="login-submit">Sign in</button>
+                    </form>
+
+                    <hr class="my-4">
+                    <p class="mb-0 lead-muted">
+                        No account yet? <a href="register.html">Register as a student</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

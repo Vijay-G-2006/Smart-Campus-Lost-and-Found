@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div class="page-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div>
+            <h1 id="dashboard-greeting">Dashboard</h1>
+            <p class="lead-muted mb-0">Your reports, claims and suggested matches at a glance.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" href="report-form.html?type=LOST">Report a lost item</a>
+            <a class="btn btn-primary" href="report-form.html?type=FOUND">Report a found item</a>
+        </div>
+    </div>
+
+    <div id="dashboard-loading" class="loading-state">Loading your dashboard...</div>
+
+    <div id="dashboard-content" class="d-none">
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">My reports</p>
+                        <p class="h3 mb-0" id="stat-reports">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Open reports</p>
+                        <p class="h3 mb-0" id="stat-open">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">My claims</p>
+                        <p class="h3 mb-0" id="stat-claims">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="text-uppercase text-muted small mb-1">Claims awaiting review</p>
+                        <p class="h3 mb-0" id="stat-pending">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>My latest reports</span>
+                        <a href="my-reports.html" class="btn btn-sm btn-outline-primary">View all</a>
+                    </div>
+                    <div class="card-body" id="recent-reports"></div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>My latest claims</span>
+                        <a href="my-claims.html" class="btn btn-sm btn-outline-primary">View all</a>
+                    </div>
+                    <div class="card-body" id="recent-claims"></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Suggested matches</div>
+                    <div class="card-body">
+                        <p class="lead-muted small">
+                            Match suggestions are computed from your open lost reports. A score is a hint, never proof
+                            of ownership.
+                        </p>
+                        <div id="recent-matches"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

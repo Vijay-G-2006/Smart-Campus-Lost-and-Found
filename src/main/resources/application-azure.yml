@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------------------
+# Azure profile - Azure SQL Database + Azure Blob Storage + App Service.
+#
+# Every value is read from an environment variable / App Service application
+# setting. No credential is stored in this repository.
+#
+#   SPRING_PROFILES_ACTIVE=azure
+#   DB_URL=jdbc:sqlserver://<server>.database.windows.net:1433;database=findit;encrypt=true;trustServerCertificate=false
+#   DB_USERNAME=<user>
+#   DB_PASSWORD=<password>
+#   AZURE_STORAGE_CONNECTION_STRING=<connection string>   (or use managed identity)
+#   AZURE_STORAGE_ACCOUNT_NAME=<storage account>
+#   AZURE_STORAGE_CONTAINER=findit-item-images
+# ---------------------------------------------------------------------------
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: none
+  flyway:
+    placeholders:
+      id_identity: IDENTITY(1,1)
+      boolean_type: BIT
+      bool_true: "1"
+      bool_false: "0"
+      datetime_type: DATETIME2
+
+app:
+  storage:
+    type: azure
+  seed:
+    # Never seed demo data in production.
+    # Set APP_SEED_ENABLED=true together with ADMIN_SEED_EMAIL and
+    # ADMIN_SEED_PASSWORD for exactly one start to create the administrator
+    # account, then switch it back to false.
+    enabled: ${APP_SEED_ENABLED:false}
+    admin-email: ${ADMIN_SEED_EMAIL:}
+    admin-password: ${ADMIN_SEED_PASSWORD:}
+    admin-display-name: FindIT Administrator
+    demo-data: false
+
+server:
+  servlet:
+    session:
+      cookie:
+        secure: ${SESSION_COOKIE_SECURE:true}
+
+logging:
+  level:
+    com.findit: INFO

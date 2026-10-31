@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FindIT - Smart Campus Lost and Found</title>
+    <meta name="description" content="FindIT helps students and staff report, find and return lost belongings on campus.">
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main">
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <h1 class="mb-3">Lost something on campus? Found something that belongs to someone?</h1>
+                    <p class="mb-4">
+                        FindIT replaces scattered noticeboards and group chats with one searchable,
+                        auditable lost and found workflow. Report an item, review suggested matches and let
+                        the campus office verify and hand items back safely.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-light btn-lg" href="register.html" id="cta-register">Create an account</a>
+                        <a class="btn btn-outline-light btn-lg" href="login.html" id="cta-login">Sign in</a>
+                        <a class="btn btn-outline-light btn-lg" href="search.html" id="cta-search">Browse reports</a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="h5">How it works</h2>
+                            <ol class="mb-0 ps-3">
+                                <li class="mb-2">Report a <strong>lost</strong> or <strong>found</strong> item with a
+                                    category, location and date.
+                                </li>
+                                <li class="mb-2">Get rule-based <strong>match suggestions</strong> that explain how the
+                                    score was calculated.
+                                </li>
+                                <li class="mb-2">Submit a <strong>private claim</strong> with the details only the
+                                    owner knows.
+                                </li>
+                                <li class="mb-0">An <strong>administrator</strong> verifies the claim and records the
+                                    handover.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="feature-icon" aria-hidden="true">&#128269;</span>
+                        <h2 class="h5">Searchable by design</h2>
+                        <p class="lead-muted mb-0">Filter by lost or found, category, campus location and date.
+                            Results are paginated and stable.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="feature-icon" aria-hidden="true">&#128274;</span>
+                        <h2 class="h5">Private by default</h2>
+                        <p class="lead-muted mb-0">Claim explanations, verification answers and contact details stay
+                            private. Only the claimant and administrators can read them.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <span class="feature-icon" aria-hidden="true">&#9878;&#10003;</span>
+                        <h2 class="h5">Verified handover</h2>
+                        <p class="lead-muted mb-0">A match score is only a suggestion. An administrator verifies
+                            ownership and records every decision.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <h2 class="h5 mb-1">Ready to look for your belongings?</h2>
+                    <p class="lead-muted mb-0">Create an account to report items, submit claims and follow the
+                        status of your reports.</p>
+                </div>
+                <a class="btn btn-primary" href="register.html">Get started</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span>
+            <a href="help.html">Help &amp; privacy</a>
+        </span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script>
+    finditUi.initPage({ pageId: 'home' });
+</script>
+</body>
+</html>

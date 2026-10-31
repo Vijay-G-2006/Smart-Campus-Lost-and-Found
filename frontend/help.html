@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Help &amp; privacy - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-4">
+    <div class="page-header">
+        <h1>Help &amp; privacy</h1>
+        <p class="lead-muted">How FindIT works and what happens with your data.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card mb-4">
+                <div class="card-header">Frequently asked questions</div>
+                <div class="card-body">
+                    <h2 class="h6">How are match scores calculated?</h2>
+                    <p class="lead-muted">
+                        The score is rule based and deterministic: the same category is worth 30 points, shared
+                        keywords in the title and description are worth up to 30 points, the location is worth up to
+                        20 points and the date distance is worth up to 20 points. The maximum is 100 points. The
+                        breakdown is shown with every suggestion.
+                    </p>
+
+                    <h2 class="h6">Does a high score prove that an item is mine?</h2>
+                    <p class="lead-muted">
+                        No. A score is only a suggestion. Ownership is always verified manually by a campus
+                        administrator, and only the administrator can approve a claim.
+                    </p>
+
+                    <h2 class="h6">Who can see my claim?</h2>
+                    <p class="lead-muted">
+                        Only you and the administrators who review claims. Your explanation, verification answers and
+                        contact details never appear in a public report and are not visible to other students.
+                    </p>
+
+                    <h2 class="h6">Who can see the private verification detail of a report?</h2>
+                    <p class="lead-muted">
+                        Only the person who created the report and the administrators. It is used to compare a claim
+                        with the item, for example to check the contents of a bag.
+                    </p>
+
+                    <h2 class="h6">Can I still edit my report?</h2>
+                    <p class="lead-muted">
+                        You can edit or close your own report while it is still open. As soon as a claim is being
+                        reviewed or the item was returned, the report is locked so that the history stays correct.
+                    </p>
+
+                    <h2 class="h6">What happens after a claim is approved?</h2>
+                    <p class="lead-muted">
+                        The administrator coordinates the handover and then marks the item as returned. From that
+                        moment the report does not accept new claims and the status history is final.
+                    </p>
+
+                    <h2 class="h6">How do I report an item that is not in a category?</h2>
+                    <p class="lead-muted">
+                        Use the category "Other" and describe the item as precisely as possible. A detailed
+                        description improves the keyword matching.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card mb-4">
+                <div class="card-header">Privacy notice</div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li class="mb-2">FindIT stores the display name, email address and the reports you create.</li>
+                        <li class="mb-2">Passwords are stored as a one-way hash (BCrypt) and are never readable.</li>
+                        <li class="mb-2">Uploaded images are stored in a private location and are only served to
+                            signed-in users.
+                        </li>
+                        <li class="mb-2">Claim texts, verification answers and contact details are private and are
+                            only visible to you and to administrators.
+                        </li>
+                        <li class="mb-2">Administrative actions are recorded in an audit log so that decisions stay
+                            traceable.
+                        </li>
+                        <li class="mb-0">Do not enter sensitive personal data such as national identity numbers or
+                            payment information.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Accessibility</div>
+                <div class="card-body">
+                    <p class="lead-muted mb-2">
+                        FindIT uses semantic HTML, labelled form controls, visible focus states and status labels that
+                        never rely on colour alone. The layout works on phones, tablets and desktops.
+                    </p>
+                    <p class="lead-muted mb-0">
+                        If you find a barrier, please report it to the campus lost property office so that it can be
+                        fixed.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="index.html">Back to the start</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script>
+    finditUi.initPage({ pageId: 'help' });
+</script>
+</body>
+</html>

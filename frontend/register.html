@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register - FindIT</title>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-findit">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><span class="brand-mark">F</span>FindIT</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-collapse"
+                aria-controls="nav-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav me-auto" id="main-nav"></ul>
+        </div>
+    </div>
+</nav>
+
+<main id="main" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="page-header">
+                <h1>Create your account</h1>
+                <p class="lead-muted">Register once, then report lost items, publish found items and submit claims.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div id="register-error" class="alert alert-danger d-none" role="alert"></div>
+
+                    <form id="register-form" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="displayName">Display name</label>
+                            <input class="form-control" type="text" id="displayName" name="displayName"
+                                   autocomplete="name" minlength="2" maxlength="80" required>
+                            <div class="form-text">This name is shown on your reports. Please do not add phone numbers.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="email">Email address</label>
+                            <input class="form-control" type="email" id="email" name="email" autocomplete="email"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password"
+                                   autocomplete="new-password" minlength="10" required>
+                            <div class="form-text">At least 10 characters, including a letter and a digit.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label required-marker" for="confirmPassword">Repeat password</label>
+                            <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+                                   autocomplete="new-password" minlength="10" required>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit" id="register-submit">Create account</button>
+                    </form>
+
+                    <hr class="my-4">
+                    <p class="mb-0 lead-muted">Already registered? <a href="login.html">Sign in</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-findit">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span>FindIT - Smart Campus Lost and Found Management System</span>
+        <span><a href="help.html">Help &amp; privacy</a></span>
+    </div>
+</footer>
+
+<script src="vendor/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
